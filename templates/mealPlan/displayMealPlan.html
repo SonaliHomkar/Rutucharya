@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block title %} | 'Show MealPlan' {% endblock %}
+{% block content %}
+<h1>Meal Planner</h1>
+
+<script type="text/javascript">
+    
+        function checkhidden(objMealData) {
+            alert("hi");
+            var i;
+            for (i = 0; i < objMealData.length; i++) {
+                    text += objMealData[i] + "<br>";
+            }
+            subCat = $("#subcategory");
+            subCat.empty();
+            subCat.append("<span><b>Latest Items</b></span><br>");
+            for (var i = 0; i < objMealData.length; i++) {
+                                    //alert("result " + result.items[i].ItemName)
+                    subCat.append("<a href='/ItemCatlog/" + objMealData.typeOfMeal + "/displayItemDetail/'>" + result.items[i].ItemName + "</a><br>");
+            }
+        }
+   
+</script>
+
+
+<section id="showcase-inner" class="py-5 text-white">
+        <div class="container">
+          <div class="row text-center">
+            <div class="col-md-12">
+              <h1 class="display-4"></h1>
+              <p class="lead"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    <!-- Breadcrumb -->
+        <section id="bc" class="mt-3">
+            <div class="container">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}">
+                      <i class="fas fa-home"></i> Home</a>
+                  </li>
+                  <li class="breadcrumb-item active"> 
+                      <a href="">
+                            </a> <a href="{% url 'index' %}">Back to Main page</a> 
+                  </li>
+                 
+                </ol>
+              </nav>  
+            </div>
+          </section>
+          
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}
+<!-- Listings -->
+
+<section id="mealPlan" class="py-4">
+  <div class="container">
+    <h1>display meal plan</h1> 
+    <div class="row">
+            <div class="col-md-9">
+              <div class="row mb-5">
+                    <div class="col-md-3">
+                        Breakfast
+                    </div>
+                    <div class="col-md-3">
+                        Lunch
+                    </div>
+                    <div class="col-md-3">
+                        Dinner
+                    </div>
+                    <div class="col-md-3">
+                        Snacks
+                    </div>
+                </div>
+            </div>
+    </div>
+        
+        
+        
+    
+    {% for meal in objMealData %}
+    <div >
+        <h6>{{ meal.dateOfMeal }}</h6>
+    </div>
+        <div class="row" >
+            <div class="col-md-9">
+              <div class="row mb-5">
+    
+                <div class="col-md-3">
+                    {% if meal.typeOfMeal.id == 1 %}
+                        <h6>{{ meal.menuId }}</h6>
+                    {% endif%}
+                </div>
+                <div class="col-md-3">
+                    {% if meal.typeOfMeal.id == 2 %}
+                        <h6>{{ meal.menuId }}</h6>
+                    {% endif%}
+                </div>
+                <div class="col-md-3">
+                    {% if meal.typeOfMeal.id == 3 %}
+                        <h6>{{ meal.menuId }}</h6>
+                    {% endif%}
+                </div>
+                <div class="col-md-3">
+                    {% if meal.typeOfMeal.id == 4 %}
+                        <h6>{{ meal.menuId }}</h6>
+                    {% endif%}
+                </div>
+            
+                
+                
+            <input type="hidden" id='hdndate' value="{{ meal.dateOfMeal }}" onchange="checkhidden()">
+            
+                        </div>
+                    </div>
+                </div>
+            
+                      
+  {% endfor %}
+
+  
+  
+  </div>
+  
+</div>
+</section>  
+
+    
+
+{% endblock %}
+
+
+
+      
+      

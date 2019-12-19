@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %} | 'Rutu' {% endblock %}
+{% block content %}
+<h1>Rutu Information</h1>
+
+<section id="showcase-inner" class="py-5 text-white">
+        <div class="container">
+          <div class="row text-center">
+            <div class="col-md-12">
+              <h1 class="display-4"></h1>
+              <p class="lead"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    <!-- Breadcrumb -->
+        <section id="bc" class="mt-3">
+            <div class="container">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}">
+                      <i class="fas fa-home"></i> Home</a>
+                  </li>
+                  <li class="breadcrumb-item active"> 
+                      <a href="">
+                            </a> 
+                  </li>
+                 
+                </ol>
+              </nav>  
+            </div>
+          </section>
+          
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}
+<!-- Listings -->
+{% for rutu in rutuListing %}
+<section id="listings" class="py-4">
+  <div class="container">
+    <a href="{% url 'index' %}">Back to Main page</a> 
+    <div class="row">
+      <div class="col-md-9">
+            <div class="row mb-5">
+                    <div class="col-md-12">
+                         <h2>   {{ rutu.Name }}({{ rutu.zone }})</h2>
+                         
+
+                  </div>
+                      <!--Main Image-->
+          <img class="img-main img-fluid mb-3" src="{{ rutu.photo_main.url }}" alt="">
+          <!--fields-->
+          <div class="row mb-5 fields">
+            <div class="col-md-6">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-secondary ">
+                            <form action="{% url 'rutudetails' %}" method="POST">
+                                <input type="hidden" name="RutuName" value="{{ rutu.Name }}">
+                                <span>you have selected : 
+                                  {%for val in grainList %}
+                                      {{ val.grainName }}
+                                  {% endfor %}
+                                </span>
+                                {% csrf_token %}
+                                <i class="fas fa-money-built-art">Grains:</i>
+                                          {% for type in grainsListing %}
+                                            {{type.grainName}}
+                                              <span><input name="chkGrains" type="checkbox" id={{ type.grainName }} value={{ type.id }} ></span>
+                                              
+                                          {% endfor %}
+                                          <span><input type="text" name="txtfirstname" ></span>
+                                 <input type="submit" value="Save" class="btn btn-submit">         
+                              </form>
+                        </li> 
+                </ul>
+            </div>
+          </div>
+            
+          
+        </div>
+      </div>  
+    
+      
+  
+  </div>
+</div>  
+</section>  
+
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %} | 'MealPlan' {% endblock %}
+{% block content %}
+<h1>Meal Planner</h1>
+
+<section id="showcase-inner" class="py-5 text-white">
+        <div class="container">
+          <div class="row text-center">
+            <div class="col-md-12">
+              <h1 class="display-4"></h1>
+              <p class="lead"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    <!-- Breadcrumb -->
+        <section id="bc" class="mt-3">
+            <div class="container">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}">
+                      <i class="fas fa-home"></i> Home</a>
+                  </li>
+                  <li class="breadcrumb-item active"> 
+                      <a href="">
+                            </a> <a href="{% url 'index' %}">Back to Main page</a> 
+                  </li>
+                 
+                </ol>
+              </nav>  
+            </div>
+          </section>
+          
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}
+<!-- Listings -->
+
+<section id="mealPlan" class="py-4">
+  <div class="container">
+    
+    {% for week in Weekdata %}
+    
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row mb-5">
+          
+          <div class="col-md-12">
+            <h6>{{ week.startDate }}</h6>
+            {% for meal in lstmealType %}
+              <a href="{% url 'selectMenu'  meal.id  week.startDate week.actDate %}">{{ meal.mealType }}</a>
+            {% endfor %}
+            
+          </div>
+          
+          
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+    
+  </div>
+</section>  
+
+
+{% endblock %}
+
+
+
+      
+      
